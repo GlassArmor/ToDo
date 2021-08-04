@@ -3,15 +3,22 @@ import './TaskList.css';
 
 import Task from '../Task';
 
-const TaskList = ( { dealsData, onDeleted }) => {
+const TaskList = ( { dealsData, mode, onDeleted, onDone, onEdit }) => {
 
   let tasks = dealsData.map((item) => {
+    let visible = true;
+    if (mode === 'done' && !item.taskCompleted) visible = false;
+    if (mode === 'undone' && item.taskCompleted) visible = false;
     return (
       <Task key = {item.key}
-            state = {item.state}
             taskText = {item.taskText}
             taskDate = {item.taskDate}
-            onDeleted = { () => onDeleted(item.key) } />
+            taskCompleted = {item.taskCompleted}
+            visible = {visible}
+            taskEditing = {item.taskEditing}
+            onDeleted = { () => onDeleted(item.key) }
+            onDone = { () => onDone(item.key) }
+            onEdit = { () => onEdit(item.key) } />
     );
   });
 

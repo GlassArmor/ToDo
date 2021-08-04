@@ -10,12 +10,23 @@ export default class App extends Component {
   constructor() {
     super();
 
+    this.maxId = 0;
+
+    this.createTask = (taskText) => {
+      return   { key: `a${this.maxId++}`,
+                 taskText: taskText,
+                 taskDate: 'N+1 minutes ago',
+                 taskCompleted: false,
+                 taskEditing: false,
+               };
+    }
+
     this.state = {
-      dealsData: [ { key: 'a', taskText: 'Do some deals', taskDate: '2 hours ago'},
-                   { key: 'b', taskText: 'Do other deals', taskDate: 'just now'},
-                   { key: 'c', taskText: 'Drink coffee', taskDate: 'about an hour ago'},
-                   { key: 'd', taskText: 'Play guitar', taskDate: '26 minutes ago'}
-                  ]
+      dealsData: [ this.createTask('Deal1'),
+                   this.createTask('Deal2'),
+                   this.createTask('Deal3')
+                 ],
+      mode: 'all'
     }
 
     this.deleteTask = (key) => {
@@ -27,16 +38,70 @@ export default class App extends Component {
         }
       });
     }
+
+    this.addTask = (newText) => {
+
+      if (!newText) return;
+
+      this.setState(({dealsData}) => {
+
+        return {
+          dealsData: [ ...dealsData, this.createTask(newText) ]
+        }
+      });
+
+    }
+
+    this.onDone = (key) => {
+      this.setState(({dealsData}) => {
+        let keyIndex = dealsData.findIndex((elem)=> elem.key === key);
+        let elementDone = {...dealsData[keyIndex], taskCompleted: !dealsData[keyIndex].taskCompleted };
+        return {
+          dealsData: [ ...dealsData.slice(0, keyIndex), elementDone ,...dealsData.slice(keyIndex+1)]
+        }
+      });
+    }
+
+    this.onEdit = (key) => {
+      this.setState(({dealsData}) => {
+        let keyIndex = dealsData.findIndex((elem)=> elem.key === key);
+        let elementEditing = {...dealsData[keyIndex], taskEditing: !dealsData[keyIndex].taskEditing };
+        return {
+          dealsData: [ ...dealsData.slice(0, keyIndex), elementEditing ,...dealsData.slice(keyIndex+1)]
+        }
+      });
+    }
+
+    this.clearDone = () => {
+      this.setState(({dealsData}) => {
+        return {
+            dealsData: dealsData.filter((item) => !item.taskCompleted )
+        }
+      });
+    }
+
+    this.setMode = (modeName) => {
+      this.setState({ mode: modeName });
+    }
+
   }
 
   render() {
-    let {dealsData} = this.state;
+    let {dealsData, mode} = this.state;
+    let undoneCount = dealsData.length - dealsData.filter( (elem) => elem.taskCompleted ).length;
     return (
       <section className = 'todoapp'>
-        <Header />
+        <Header onItemAdded = {this.addTask} />
         <section className = 'main'>
-          <TaskList dealsData = { dealsData } onDeleted = {this.deleteTask}/>
-          <Footer />
+          <TaskList dealsData = { dealsData }
+                    onDeleted = {this.deleteTask}
+                    onDone = { this.onDone }
+                    onEdit = { this.onEdit }
+                    mode = { mode } />
+          <Footer count = {undoneCount}
+                  clearDone = { this.clearDone }
+                  setMode = { this.setMode }
+                  mode = { mode } />
         </section>
       </section>
     );
