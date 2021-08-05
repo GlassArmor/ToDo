@@ -1,7 +1,18 @@
 import React, {Component} from 'react';
 import './NewTaskForm.css';
 
+import PropTypes from 'prop-types';
+
 export default class NewTaskForm extends Component {
+
+  static defaultProps = {
+    onItemAdded: ()=>{}
+  }
+
+  static propTypes = {
+    onItemAdded: PropTypes.func
+  }
+
   constructor() {
     super();
 
@@ -18,7 +29,9 @@ export default class NewTaskForm extends Component {
     this.onChange = (e) => {
       this.setState({ inputValue: e.target.value });
     }
+
   }
+
   render() {
     return (
       <form onSubmit = { this.onSubmit }>

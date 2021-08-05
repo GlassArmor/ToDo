@@ -15,17 +15,16 @@ export default class App extends Component {
     this.createTask = (taskText) => {
       return   { key: `a${this.maxId++}`,
                  taskText: taskText,
-                 taskDate: 'N+1 minutes ago',
+                 taskDate: new Date(),
                  taskCompleted: false,
                  taskEditing: false,
                };
     }
 
     this.state = {
-      dealsData: [ this.createTask('Deal1'),
-                   this.createTask('Deal2'),
-                   this.createTask('Deal3')
-                 ],
+      dealsData: [ this.createTask('Some Epic deal!'),
+                   this.createTask('Unlock Legendary'),
+                   this.createTask('For only 9.99$!') ],
       mode: 'all'
     }
 
@@ -62,10 +61,11 @@ export default class App extends Component {
       });
     }
 
-    this.onEdit = (key) => {
+    this.onEdit = (key, newText) => {
       this.setState(({dealsData}) => {
         let keyIndex = dealsData.findIndex((elem)=> elem.key === key);
         let elementEditing = {...dealsData[keyIndex], taskEditing: !dealsData[keyIndex].taskEditing };
+        if (newText) elementEditing.taskText = newText;
         return {
           dealsData: [ ...dealsData.slice(0, keyIndex), elementEditing ,...dealsData.slice(keyIndex+1)]
         }

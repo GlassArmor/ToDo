@@ -1,6 +1,8 @@
 import React from 'react';
 import './TasksFilter.css';
 
+import PropTypes from 'prop-types';
+
 const TasksFilter = ({mode, setMode}) => {
   return (
     <ul className="filters">
@@ -15,6 +17,16 @@ const TasksFilter = ({mode, setMode}) => {
             </li>
     </ul>
   );
+};
+
+TasksFilter.defaultProps = {
+  mode: 'all',
+  setMode: ()=>{}
+};
+
+TasksFilter.propTypes = {
+  mode: PropTypes.oneOf(['all', 'done', 'undone']),
+  setMode: PropTypes.func
 };
 
 export default TasksFilter;
