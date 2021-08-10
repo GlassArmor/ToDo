@@ -1,3 +1,3 @@
-import NewTaskForm from './NewTaskForm.js';
+import NewTaskForm from './NewTaskForm';
 
 export default NewTaskForm;

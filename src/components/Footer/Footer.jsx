@@ -5,15 +5,13 @@ import PropTypes from 'prop-types';
 
 import TasksFilter from '../TasksFilter';
 
-const Footer = ({count, clearDone, mode, setMode}) => {
-  return (
+const Footer = ({count, clearDone, mode, setMode}) => (
     <footer className="footer">
       <span className="todo-count">{count} items left</span>
       <TasksFilter mode={mode} setMode={setMode} />
-      <button className="clear-completed" onClick={clearDone} >Clear completed</button>
+      <button type="button" className="clear-completed" onClick={clearDone} >Clear completed</button>
     </footer>
   );
-};
 
 Footer.defaultProps = {
   count: 0,

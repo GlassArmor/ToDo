@@ -7,7 +7,7 @@ import Task from '../Task';
 
 const TaskList = ( { dealsData, mode, onDeleted, onDone, onEdit }) => {
 
-  let tasks = dealsData.map((item) => {
+  const tasks = dealsData.map((item) => {
     let visible = true;
     if (mode === 'done' && !item.taskCompleted) visible = false;
     if (mode === 'undone' && item.taskCompleted) visible = false;

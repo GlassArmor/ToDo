@@ -37,27 +37,28 @@ export default class Task extends Component {
       inputValue: ''
     };
 
-    this.onSubmit = (e) => {
-      e.preventDefault();
-      this.props.onEdit(this.props.id, this.state.inputValue);
+    this.onSubmit = (event) => {
+      event.preventDefault();
+      const { id, onEdit } = this.props;
+      const { inputValue } = this.state;
+      onEdit(id, inputValue);
       this.setState({ inputValue: '' });
     };
 
-    this.onChange = (e) => {
-      this.setState({ inputValue: e.target.value });
+    this.onChange = (event) => {
+      this.setState({ inputValue: event.target.value });
     };
   }
 
   render() {
-    let { id, taskText, taskDate, taskCompleted, taskEditing, onDeleted, onDone, onEdit, visible } = this.props;
+    const { id, taskText, taskDate, taskCompleted, taskEditing, onDeleted, onDone, onEdit, visible } = this.props;
     if (!visible) return null;
-
-    let inputString = <form onSubmit={this.onSubmit}>
+    const {inputValue} = this.state;
+    const inputString = <form onSubmit={this.onSubmit}>
                         <input type="text" className="edit"
                                            placeholder="Edit task"
                                            onChange={ this.onChange }
-                                           value = { this.state.inputValue }
-                                           autoFocus />
+                                           value = { inputValue } />
                       </form>;
 
     let nameString = '';
@@ -66,15 +67,15 @@ export default class Task extends Component {
     return (
       <li className={nameString} >
         <div className="view">
-          <input className="toggle" type="checkbox" onClick={ onDone } defaultChecked = {taskCompleted? true: false } />
+          <input className="toggle" type="checkbox" onClick={ onDone } defaultChecked = {!!taskCompleted } />
             <label>
               <span className="description" >{ taskText }</span>
               <span className="created">created { formatDistanceToNow(taskDate, {includeSeconds: true} ) } ago</span>
             </label>
-            <button className="icon icon-edit" onClick={ () => onEdit(id) } ></button>
-            <button className="icon icon-destroy" onClick={ onDeleted }></button>
+            <button type="button" className="icon icon-edit" onClick={ () => onEdit(id) }><span className="visually-hidden">Edit task</span></button>
+            <button type="button" className="icon icon-destroy" onClick={ onDeleted }><span className="visually-hidden">Delete task</span></button>
         </div>
-        { this.props.taskEditing? inputString : null }
+        { taskEditing? inputString : null }
       </li>
     );
   }

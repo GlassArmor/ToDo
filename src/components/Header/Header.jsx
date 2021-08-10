@@ -5,14 +5,12 @@ import PropTypes from 'prop-types';
 
 import NewTaskForm from '../NewTaskForm';
 
-const Header = ({onItemAdded}) => {
-  return (
+const Header = ({onItemAdded}) => (
     <header className="header">
-      <h1>Checkpoints</h1>
+      <h1>todos</h1>
       <NewTaskForm onItemAdded = {onItemAdded} />
     </header>
   );
-};
 
 Header.defaultProps = {
   onItemAdded: ()=>{}
