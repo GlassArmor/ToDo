@@ -1,3 +1,4 @@
+
 import React from 'react';
 import './TaskList.css';
 
@@ -44,7 +45,7 @@ TaskList.propTypes = {
   dealsData: PropTypes.arrayOf(PropTypes.shape(
            { key: PropTypes.string,
              taskText: PropTypes.string,
-             taskDate: PropTypes.instanceOf(Date),
+             taskDate: PropTypes.number,
              taskCompleted: PropTypes.bool,
              taskEditing: PropTypes.bool,
            } )),

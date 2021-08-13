@@ -21,7 +21,7 @@ export default class Task extends Component {
   static propTypes = {
     id: PropTypes.string,
     taskText: PropTypes.string,
-    taskDate: PropTypes.instanceOf(Date),
+    taskDate: PropTypes.number,
     taskCompleted: PropTypes.bool,
     taskEditing: PropTypes.bool,
     onDeleted: PropTypes.func,
@@ -70,7 +70,7 @@ export default class Task extends Component {
           <input className="toggle" type="checkbox" onClick={ onDone } defaultChecked = {!!taskCompleted } />
             <label>
               <span className="description" >{ taskText }</span>
-              <span className="created">created { formatDistanceToNow(taskDate, {includeSeconds: true} ) } ago</span>
+              <span className="created">created  { formatDistanceToNow(taskDate, {includeSeconds: true}) }  ago</span>
             </label>
             <button type="button" className="icon icon-edit" onClick={ () => onEdit(id) }><span className="visually-hidden">Edit task</span></button>
             <button type="button" className="icon icon-destroy" onClick={ onDeleted }><span className="visually-hidden">Delete task</span></button>
