@@ -48,6 +48,10 @@
 	color: #737373;
 }
 
+.created {
+	width: 20%;
+}
+
 .visually-hidden {
 	position: absolute;
 	width: 1px;

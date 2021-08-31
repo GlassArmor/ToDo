@@ -22,7 +22,9 @@ const TaskList = ( { dealsData, mode, onDeleted, onDone, onEdit }) => {
             taskEditing = {item.taskEditing}
             onDeleted = { () => onDeleted(item.key) }
             onDone = { () => onDone(item.key) }
-            onEdit = { onEdit } />
+            onEdit = { onEdit }
+            minutes = { item.taskMinutes }
+            seconds = { item.taskSeconds } />
     );
   });
 

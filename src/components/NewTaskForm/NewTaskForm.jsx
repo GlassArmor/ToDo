@@ -17,30 +17,48 @@ export default class NewTaskForm extends Component {
     super();
 
     this.state = {
-      inputValue: ''
+      inputTask: '',
+      inputMinutes: '',
+      inputSeconds: ''
     }
 
     this.onSubmit = (event) => {
       event.preventDefault();
       const {onItemAdded} = this.props;
-      const { inputValue } = this.state;
-      onItemAdded(inputValue);
-      this.setState({inputValue:''});
+      const { inputTask, inputMinutes, inputSeconds } = this.state;
+      onItemAdded(inputTask, Number(inputMinutes), Number(inputSeconds));
+      this.setState({
+        inputTask: '',
+        inputMinutes: '',
+        inputSeconds: ''
+      });
     }
 
     this.onChange = (event) => {
-      this.setState({ inputValue: event.target.value });
+      this.setState({ [event.target.name]: event.target.value });
     }
 
   }
 
   render() {
-    const { inputValue } = this.state;
+    const { inputTask, inputMinutes, inputSeconds } = this.state;
     return (
-      <form onSubmit = { this.onSubmit }>
-        <input value = { inputValue } type='text' className='new-todo'
+      <form onSubmit = { this.onSubmit } className='new-todo-form'>
+        <input value = { inputTask } type='text' className='new-todo'
                placeholder='What needs to be done?'
+               name='inputTask'
                onChange = { this.onChange } />
+        <input value={inputMinutes} placeholder='Min'
+               className='new-todo-form__timer'
+               name='inputMinutes'
+               type='number' min={0}
+               onChange = { this.onChange } />
+        <input value={inputSeconds} placeholder='Sec'
+               className='new-todo-form__timer'
+               name='inputSeconds'
+               type='number' min={0} max ={59}
+               onChange = { this.onChange } />
+        <input type='submit' className='visually-hidden' />
       </form>
     );
   }

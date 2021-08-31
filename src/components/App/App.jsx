@@ -67,13 +67,15 @@ export default class App extends Component {
       return loadState;
     };
 
-    this.createTask = (taskText) => {
+    this.createTask = (taskText, minutes=0, seconds=0) => {
         this.maxId += 1;
         return ({ key: `a${this.maxId}`,
                    taskText,
                    taskDate: Date.parse(new Date()),
                    taskCompleted: false,
                    taskEditing: false,
+                   taskMinutes: minutes,
+                   taskSeconds: seconds
                  })
     }
 
@@ -94,12 +96,12 @@ export default class App extends Component {
       });
     }
 
-    this.addTask = (newText) => {
+    this.addTask = (newText, minutes, seconds) => {
 
       if (!newText) return;
 
       this.setState(({dealsData}) => ({
-          dealsData: [ ...dealsData, this.createTask(newText) ],
+          dealsData: [ ...dealsData, this.createTask(newText, minutes, seconds) ],
           maxId: this.maxId
         }));
 

@@ -4,6 +4,8 @@ import './Task.css';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import PropTypes from 'prop-types';
 
+import TaskTimer from '../TaskTimer';
+
 export default class Task extends Component {
 
   static defaultProps = {
@@ -15,7 +17,9 @@ export default class Task extends Component {
     onDeleted: ()=>{},
     onDone: ()=>{} ,
     onEdit: ()=>{},
-    visible: true
+    visible: true,
+    minutes: 0,
+    seconds: 0
   }
 
   static propTypes = {
@@ -27,7 +31,9 @@ export default class Task extends Component {
     onDeleted: PropTypes.func,
     onDone: PropTypes.func ,
     onEdit: PropTypes.func,
-    visible: PropTypes.bool
+    visible: PropTypes.bool,
+    minutes: PropTypes.number,
+    seconds: PropTypes.number
   }
 
   constructor() {
@@ -51,7 +57,8 @@ export default class Task extends Component {
   }
 
   render() {
-    const { id, taskText, taskDate, taskCompleted, taskEditing, onDeleted, onDone, onEdit, visible } = this.props;
+    const { id, taskText, taskDate, taskCompleted, taskEditing,
+            onDeleted, onDone, onEdit, visible, minutes, seconds } = this.props;
     if (!visible) return null;
     const {inputValue} = this.state;
     const inputString = <form onSubmit={this.onSubmit}>
@@ -70,6 +77,7 @@ export default class Task extends Component {
           <input className="toggle" type="checkbox" onClick={ onDone } defaultChecked = {!!taskCompleted } />
             <label>
               <span className="description" >{ taskText }</span>
+              <TaskTimer minutes={minutes} seconds={seconds} />
               <span className="created">created  { formatDistanceToNow(taskDate, {includeSeconds: true}) }  ago</span>
             </label>
             <button type="button" className="icon icon-edit" onClick={ () => onEdit(id) }><span className="visually-hidden">Edit task</span></button>
