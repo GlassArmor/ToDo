@@ -59,11 +59,11 @@ export default class TaskTimer extends Component {
     if (timerSeconds < 10) timerSeconds = `0${timerSeconds}`;
 
     return (
-      <span>
+      <div className='timer'>
         <button className='' onClick={this.play}><img className='timer_button' src={play} alt='Resume timer'/></button>
-        <button className='' onClick={this.pause}><img className='timer_button' src={stop} alt='Pause timer'/></button>
-        <span>{ `${timerMinutes}:${timerSeconds}` }</span>
-      </span>
+        <button className='button_pause' onClick={this.pause}><img className='timer_button' src={stop} alt='Pause timer'/></button>
+        <div className='timer_text'>{ `${timerMinutes}:${timerSeconds}` }</div>
+      </div>
     );
   };
 

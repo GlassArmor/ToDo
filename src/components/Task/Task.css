@@ -49,7 +49,9 @@
 }
 
 .created {
-	width: 20%;
+	vertical-align: baseline;
+	width: 60%;
+	margin-left: 8px;
 }
 
 .visually-hidden {
@@ -61,4 +63,20 @@
 	padding: 0;
 	clip: rect (0 0 0 0);
 	overflow: hidden;
+}
+
+.item_info {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+}
+.description {
+	display: block;
+	width: 60%;
+}
+
+.item_time {
+	display: flex;
+	flex-wrap: nowrap;
+	width: 40%;
 }

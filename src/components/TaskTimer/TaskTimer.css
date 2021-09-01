@@ -1,4 +1,17 @@
+.timer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
 .timer_button {
   width: 20px;
   magrin: 4px;
+}
+.timer_text {
+  font-size: 13px;
+  color: gray;
+  margin-left: 4px;
+}
+.button_pause {
+  transform: translateY(1px);
 }

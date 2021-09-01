@@ -75,10 +75,12 @@ export default class Task extends Component {
       <li className={nameString} >
         <div className="view">
           <input className="toggle" type="checkbox" onClick={ onDone } defaultChecked = {!!taskCompleted } />
-            <label>
+            <label className='item_info'>
               <span className="description" >{ taskText }</span>
-              <TaskTimer minutes={minutes} seconds={seconds} />
-              <span className="created">created  { formatDistanceToNow(taskDate, {includeSeconds: true}) }  ago</span>
+              <div className='item_time'>
+                <TaskTimer minutes={minutes} seconds={seconds} />
+                <div className="created">created  { formatDistanceToNow(taskDate, {includeSeconds: true}) }  ago</div>
+              </div>
             </label>
             <button type="button" className="icon icon-edit" onClick={ () => onEdit(id) }><span className="visually-hidden">Edit task</span></button>
             <button type="button" className="icon icon-destroy" onClick={ onDeleted }><span className="visually-hidden">Delete task</span></button>
